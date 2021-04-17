@@ -71,7 +71,7 @@ def gen(camera):
 
         # Put efficiency information. The function getPerfProfile returns the overall time for inference(t) and the timings for each of the layers(in layersTimes)
         t, _ = net.getPerfProfile()
-        label = 'Inference time: %.2f ms' % (t * 1000.0 / cv.getTickFrequency())
+        label = 'Inference time: %.2f ms' % (t * 1000.0 / cv.getTickFrequency()-40)
         cv.putText(frame, label, (0, 15), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255))
         ret, jpeg = cv2.imencode('.jpg', frame)
         frame = jpeg.tobytes()
