@@ -161,7 +161,7 @@ if __name__ == '__main__':
         cv.destroyAllWindows()
 
     else:
-        cap = cv.VideoCapture(r'E:\pytorch\flask-video-streaming/test.mp4')
+        cap = cv.VideoCapture(args.video)
         fourcc = cv.VideoWriter_fourcc(*'DIVX')
         out = cv.VideoWriter('yolo-faster.avi', fourcc, 20.0, (int(cap.get(3)), int(cap.get(4))))
         font = cv.FONT_HERSHEY_SIMPLEX
