@@ -35,15 +35,15 @@ First of all, I have tested this demo in window, mac and linux environments and 
 
 -   Inference images
 
-```python yolov3_fastest.py --image dog.jpg```
+```python yolov3_faster.py --image dog.jpg```
 
 -   Inference video
 
-```python yolov3_fastest.py --video test.mp4```
+```python yolov3_faster.py --video test.mp4```
 
 -   Inference webcam
 
-```python yolov3_fastest.py --fourcc 0```
+```python yolov3_faster.py --fourcc 0```
 -   Push-Streaming
 
 ```python app.py```
