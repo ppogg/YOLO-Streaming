@@ -4,6 +4,7 @@ Hi, this repository documents the process of pushing streams on some ultra-light
 
 [![image](https://github.com/pengtougu/Push-Streaming/blob/master/result/step.png)](https://github.com/pengtougu/Push-Streaming/blob/master/result/step.png)
 
+<img src="https://github.com/pengtougu/Push-Streaming/blob/master/result/step.png" width="200" height="200" alt="step"/><br/>
 
 # Requirements
 
