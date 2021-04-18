@@ -63,7 +63,7 @@ First of all, I have tested this demo in window, mac and linux environments and 
 <img src="https://github.com/pengtougu/Push-Streaming/blob/master/result/capture.jpg" width="700" height="400" alt="capture"/><br/>
 -   Demo Push-Streaming
 
-<img src="https://github.com/pengtougu/Push-Streaming/blob/master/result/stream.jpg" width="700" height="500" alt="stream"/><br/>
+<img src="https://github.com/pengtougu/Push-Streaming/blob/master/result/stream.jpg" width="700" height="600" alt="stream"/><br/>
 
 ##  Thanks
 
