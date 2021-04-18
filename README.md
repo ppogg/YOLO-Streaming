@@ -53,13 +53,17 @@ First of all, I have tested this demo in window, mac and linux environments and 
 ##  Demo Effects
 
 -   Demo images
+
 <img src="https://github.com/pengtougu/Push-Streaming/blob/master/result/dog.jpg" width="700" height="500" alt="image"/><br/>
 -   Demo video
+
 <img src="https://github.com/pengtougu/Push-Streaming/blob/master/result/video_cut.jpg" width="700" height="400" alt="video"/><br/>
 -   Demo camera
+
 <img src="https://github.com/pengtougu/Push-Streaming/blob/master/result/capture.jpg" width="700" height="400" alt="capture"/><br/>
 -   Demo Push-Streaming
-<img src="https://github.com/pengtougu/Push-Streaming/blob/master/result/stream.jpg" width="700" height="400" alt="stream"/><br/>
+
+<img src="https://github.com/pengtougu/Push-Streaming/blob/master/result/stream.jpg" width="700" height="500" alt="stream"/><br/>
 
 ##  Thanks
 
