@@ -2,6 +2,7 @@
 
 Hi, this repository documents the process of pushing streams on some ultra-lightweight nets. The general steps are that opencv calls the **board**（like Raspberry Pi）'s camera, transmits the detected live video to an ultra-lightweight network like **yolo-fastest, nanodet**, **ghostnet**, and then talks about pushing the processed video frames to the web using the **flask** lightweight framework, which basically guarantees **real-time** performance.
 
+<img src="https://github.com/pengtougu/Push-Streaming/blob/master/result/step.png" width="700" height="500" alt="step"/><br/>
 
 # Requirements
 
@@ -52,13 +53,17 @@ First of all, I have tested this demo in window, mac and linux environments and 
 ##  Demo Effects
 
 -   Demo images
-[![image](https://github.com/pengtougu/Push-Streaming/blob/master/result/dog.jpg)](https://github.com/pengtougu/Push-Streaming/blob/master/result/dog.jpg)
+
+<img src="https://github.com/pengtougu/Push-Streaming/blob/master/result/dog.jpg" width="700" height="500" alt="image"/><br/>
 -   Demo video
-[![image](https://github.com/pengtougu/Push-Streaming/blob/master/result/video_cut.jpg)](https://github.com/pengtougu/Push-Streaming/blob/master/result/video_cut.jpg)
+
+<img src="https://github.com/pengtougu/Push-Streaming/blob/master/result/video_cut.jpg" width="700" height="400" alt="video"/><br/>
 -   Demo camera
-[![image](https://github.com/pengtougu/Push-Streaming/blob/master/result/capture.jpg)](https://github.com/pengtougu/Push-Streaming/blob/master/result/capture.jpg)
+
+<img src="https://github.com/pengtougu/Push-Streaming/blob/master/result/capture.jpg" width="700" height="400" alt="capture"/><br/>
 -   Demo Push-Streaming
-[![image](https://github.com/pengtougu/Push-Streaming/blob/master/result/stream.jpg)](https://github.com/pengtougu/Push-Streaming/blob/master/result/stream.jpg)
+
+<img src="https://github.com/pengtougu/Push-Streaming/blob/master/result/stream.jpg" width="700" height="600" alt="stream"/><br/>
 
 ##  Thanks
 
@@ -66,3 +71,5 @@ First of all, I have tested this demo in window, mac and linux environments and 
 -   [https://github.com/hpc203/Yolo-Fastest-opencv-dnn](https://github.com/hpc203/Yolo-Fastest-opencv-dnn)
 -  [https://github.com/miguelgrinberg/flask-video-streaming](https://github.com/miguelgrinberg/flask-video-streaming)
 
+##  other
+-   中文操作教程：[https://blog.csdn.net/weixin_45829462/article/details/115806322](https://blog.csdn.net/weixin_45829462/article/details/115806322)
