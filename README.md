@@ -35,6 +35,10 @@ Intel | Core i5-4210 | window10（x64） | dnn | 71ms
 
    updating. . . 
 
+- YOLOv5s-onnx： [https://github.com/ultralytics/yolov5](https://github.com/ultralytics/yolov5)
+
+
+   updating. . . 
 
 
 ## Demo
