@@ -53,7 +53,6 @@ def drawPred(color, classId, conf, left, top, right, bottom, frame):
     # cv.rectangle(frame, (left, top - round(1.5 * labelSize[1])), (left + round(1.5 * labelSize[0]), top + baseLine), (255,255,255), cv.FILLED)
     cv.putText(frame, label, (left, top - 10), cv.FONT_HERSHEY_SIMPLEX, 1, color, thickness=2)
 
-
 # Remove the bounding boxes with low confidence using non-maxima suppression
 def postprocess(frame, outs):
     frameHeight = frame.shape[0]
@@ -69,6 +68,7 @@ def postprocess(frame, outs):
             scores = detection[5:]
             classId = np.argmax(scores)
             confidence = scores[classId]
+
             if confidence > confThreshold:
                 center_x = int(detection[0] * frameWidth)
                 center_y = int(detection[1] * frameHeight)
