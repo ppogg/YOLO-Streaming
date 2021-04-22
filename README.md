@@ -60,13 +60,13 @@ First of all, I have tested this demo in window, mac and linux environments and 
 ##  Demo Effects
 **Run v3_fastest.py**
 
-image→video→capture→push stream
+-  	image→video→capture→push stream
 
 <img src="https://github.com/pengtougu/Push-Streaming/blob/master/result/v3_merge.png" width="700" height="600" alt="stream"/><br/>
 
 **Run v4_tiny.py**
 
-image→video→capture→push stream
+-  	image→video→capture→push stream
 
 <img src="https://github.com/pengtougu/Push-Streaming/blob/master/result/v4_result.png" width="700" height="600" alt="stream"/><br/>
 
