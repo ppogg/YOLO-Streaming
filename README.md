@@ -72,8 +72,6 @@ First of all, I have tested this demo in window, mac and linux environments and 
 
 -  	image→video→capture→push stream
 
-<img src="https://github.com/pengtougu/Push-Streaming/blob/master/result/v4_result.png" width="700" height="600" alt="stream"/><br/>
-
 ##  Thanks
 
 -   [https://github.com/dog-qiuqiu/Yolo-Fastest](https://github.com/dog-qiuqiu/Yolo-Fastest)
