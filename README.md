@@ -82,6 +82,7 @@ First of all, I have tested this demo in window, mac and linux environments and 
 **Run v4_tiny.py**
 
 -  	image→video→capture→push stream
+任需优化，后续补充量化版本，待更新...
 
 **Run v5_dnn.py**
 
