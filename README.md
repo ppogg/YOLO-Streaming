@@ -60,11 +60,16 @@ First of all, I have tested this demo in window, mac and linux environments and 
 -   Inference video use ```python v4_tiny.py --video test.mp4```
 -   Inference webcam use ```python v4_tiny.py --fourcc 0```
 
+**Run v5_dnn.py**
+-  	Inference images use ```python v5_dnn.py --image person.jpg```
+-   Inference video use ```python v5_dnn.py --video test.mp4```
+-   Inference webcam use ```python v5_dnn.py --fourcc 0```
+
 **Run app.py**    -（Push-Streaming online）
 
 -  	Inference with v3-fastest ```python app.py --model v3_fastest```
 -   Inference with v4-tiny ```python app.py --model v4_tiny```
-- Inference with v4-tiny ```python app.py --model v5_dnn```
+- Inference with v5-dnn ```python app.py --model v5_dnn```
 
 ⚡  **Please note! Be sure to be on the same LAN！**
 ##  Demo Effects
@@ -81,7 +86,9 @@ First of all, I have tested this demo in window, mac and linux environments and 
 **Run v5_dnn.py**
 
 -  	image(473 ms / Inference Image / Core i5-4210)→video→capture(213 ms / Inference Image / Core i5-4210)→push stream
-很有意思的是，用onnx＋dnn的方式调用v5s的模型，推理图片要比摄像头处理帧多花一倍的时间，这里摸鱼调了一个下午，还是找不出问题所在，希望看到的大佬可以帮看看代码，点破问题所在，感谢！
+
+有趣的是，用onnx＋dnn的方式调用v5s的模型，推理图片要比摄像头处理帧多花一倍的时间，看了很久，还是找不出问题所在，希望看到的大佬可以帮看看代码，点破问题所在，感谢！
+
 ##  Thanks
 
 -   [https://github.com/dog-qiuqiu/Yolo-Fastest](https://github.com/dog-qiuqiu/Yolo-Fastest)
