@@ -1,6 +1,7 @@
 from flask import Flask, render_template, Response
 from v3_fastest import *
 from v4_tiny import *
+from v5_dnn import *
 
 class VideoCamera(object):
     def __init__(self):
@@ -26,7 +27,6 @@ def index():
 
 
 def v3_fastest(camera):
-    global model
     while True:
         frame = camera.get_frame()
         # print(frame)
@@ -38,10 +38,19 @@ def v3_fastest(camera):
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
 
 def v4_tiny(camera):
-    global model
     while True:
         frame = camera.get_frame()
         v4_inference(frame)
+        ret, jpeg = cv2.imencode('.jpg', frame)
+        frame = jpeg.tobytes()
+        yield (b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
+
+def v5_dnn(camera):
+    v5_net = yolov5()
+    while True:
+        frame = camera.get_frame()
+        v5_net.v5_inference(frame)
         ret, jpeg = cv2.imencode('.jpg', frame)
         frame = jpeg.tobytes()
         yield (b'--frame\r\n'
@@ -55,10 +64,13 @@ def video_feed():
     if model == 'v4_tiny':
         return Response(v4_tiny(VideoCamera()),
                         mimetype='multipart/x-mixed-replace; boundary=frame')
+    if model == 'v5_dnn':
+        return Response(v5_dnn(VideoCamera()),
+                        mimetype='multipart/x-mixed-replace; boundary=frame')
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Object Detection using YOLO-Fastest in OPENCV')
-    parser.add_argument('--model', type=str, default='', help='v3_fastest or v4_tiny or Nano')
+    parser.add_argument('--model', type=str, default='', choices=['v3_fastest', 'v4_tiny', 'v5_dnn', 'Nano'])
     args = parser.parse_args()
     model = args.model
     app.run(host='0.0.0.0', debug=True, port=5000)
