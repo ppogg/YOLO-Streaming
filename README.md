@@ -92,7 +92,8 @@ First of all, I have tested this demo in window, mac and linux environments and 
 
 ##  Supplement
 
-This is a DNN repository that integrates the current detection algorithms. You may ask why call the model with DNN, not just git clone the whole framework down? In fact, when we are working with models, it is more advisable to separate training and inference. More, when you deploy models on a customer's production line, if you package up the training code and the training-dependent environment for each set of models (yet the customer's platform only needs you to infer, and no Graphics Card), you will be dead after a few sets of models. As an example, here is the docker for the same version of yolov5 (complete code and dependencies & inference code and dependencies). The entire docker has enough memory to support about **four** sets of inference dockers.
+This is a DNN repository that integrates the current detection algorithms. You may ask why call the model with DNN, not just git clone the whole framework down? In fact, when we are working with models, it is more advisable to separate training and inference. More, when you deploy models on a customer's production line, if you package up the training code and the training-dependent environment for each set of models (yet the customer's platform only needs you to infer, no training required for you), you will be dead after a few sets of models. As an example, here is the docker for the same version of yolov5 (complete code and dependencies & inference code and dependencies). The entire docker has enough memory to support about **four** sets of inference dockers.
+
 ![](https://github.com/pengtougu/DNN-Lightweight-Streaming/blob/master/result/%E6%8D%95%E8%8E%B7.PNG)
 
 ![](https://github.com/pengtougu/DNN-Lightweight-Streaming/blob/master/result/docker.PNG)
