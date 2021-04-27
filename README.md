@@ -1,4 +1,3 @@
-
 # DNN-Lightweight-Streaming
 
 Hi, this repository documents the process of pushing streams on some ultra-lightweight nets. The general steps are that opencv calls the **board**（like Raspberry Pi）'s camera, transmits the detected live video to an ultra-lightweight network like **yolo-fastest, nanodet**, **ghostnet**, and then talks about pushing the processed video frames to the web using the **flask** lightweight framework, which basically guarantees **real-time** performance.
@@ -89,6 +88,13 @@ First of all, I have tested this demo in window, mac and linux environments and 
 -  	image(473 ms / Inference Image / Core i5-4210)→video→capture(213 ms / Inference Image / Core i5-4210)→push stream
 
 有趣的是，用onnx＋dnn的方式调用v5s的模型，推理图片要比摄像头处理帧多花一倍的时间，看了很久，还是找不出问题所在，希望看到的大佬可以帮看看代码，点破问题所在，感谢！
+
+##  Supplement
+
+This is a DNN repository that integrates the current detection algorithms. You may ask why call the model with DNN, not just git clone the whole framework down? In fact, when we are working with models, it is more advisable to separate training and inference. More, when you deploy models on a customer's production line, if you package up the training code and the training-dependent environment for each set of models (yet the customer's platform only needs you to infer, and no Graphics Card), you will be dead after a few sets of models. As an example, here is the docker for the same version of yolov5 (complete code and dependencies & inference code and dependencies). The entire docker has enough memory to support about 4 sets of inference dockers.
+![](https://github.com/pengtougu/DNN-Lightweight-Streaming/blob/master/result/%E6%8D%95%E8%8E%B7.PNG)
+
+![](https://github.com/pengtougu/DNN-Lightweight-Streaming/blob/master/result/docker.PNG)
 
 ##  Thanks
 
