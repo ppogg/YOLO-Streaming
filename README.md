@@ -1,3 +1,4 @@
+
 # Push-Streaming
 
 Hi, this repository documents the process of pushing streams on some ultra-lightweight nets. The general steps are that opencv calls the **board**（like Raspberry Pi）'s camera, transmits the detected live video to an ultra-lightweight network like **yolo-fastest, nanodet**, **ghostnet**, and then talks about pushing the processed video frames to the web using the **flask** lightweight framework, which basically guarantees **real-time** performance.
@@ -30,16 +31,20 @@ Raspberrypi 3B| 4xCortex-A53 | Linux(arm64) | dnn | 97ms
 Intel | Core i5-4210 | window10（x64） | dnn | 71ms
 
 
-- Nanodet： [https://github.com/RangiLyu/nanodet](https://github.com/RangiLyu/nanodet)
-
-
-   updating. . . 
-
 - YOLOv5s-onnx： [https://github.com/ultralytics/yolov5](https://github.com/ultralytics/yolov5)
 
+Equipment | Computing backend | System | Framework | Run time
+ :-----:|:-----:|:-----:|:----------:|:----:|
+Raspberrypi 3B| 4xCortex-A53 | Linux(arm64) | dnn | 973ms
+Intel | Core i5-4210 | window10（x64） | dnn | 197ms
+
+   
+- Nanodet： [https://github.com/RangiLyu/nanodet](https://github.com/RangiLyu/nanodet)
 
    updating. . . 
+- Efficientnet-lite： [https://github.com/rwightman/gen-efficientnet-pytorch](https://github.com/rwightman/gen-efficientnet-pytorch)
 
+   updating. . . 
 
 ## Demo
 
@@ -59,6 +64,7 @@ First of all, I have tested this demo in window, mac and linux environments and 
 
 -  	Inference with v3-fastest ```python app.py --model v3_fastest```
 -   Inference with v4-tiny ```python app.py --model v4_tiny```
+- Inference with v4-tiny ```python app.py --model v5_dnn```
 
 ⚡  **Please note! Be sure to be on the same LAN！**
 ##  Demo Effects
@@ -72,11 +78,16 @@ First of all, I have tested this demo in window, mac and linux environments and 
 
 -  	image→video→capture→push stream
 
+**Run v5_dnn.py**
+
+-  	image(473 ms / Inference Image / Core i5-4210)→video→capture(213 ms / Inference Image / Core i5-4210)→push stream
+很有意思的是，用onnx＋dnn的方式调用v5s的模型，推理图片要比摄像头处理帧多花一倍的时间，这里摸鱼调了一个下午，还是找不出问题所在，希望看到的大佬可以帮看看代码，点破问题所在，感谢！
 ##  Thanks
 
 -   [https://github.com/dog-qiuqiu/Yolo-Fastest](https://github.com/dog-qiuqiu/Yolo-Fastest)
 -   [https://github.com/hpc203/Yolo-Fastest-opencv-dnn](https://github.com/hpc203/Yolo-Fastest-opencv-dnn)
 -  [https://github.com/miguelgrinberg/flask-video-streaming](https://github.com/miguelgrinberg/flask-video-streaming)
+- [https://github.com/hpc203/yolov5-dnn-cpp-python](https://github.com/hpc203/yolov5-dnn-cpp-python)
 
 
 ##  other
