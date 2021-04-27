@@ -27,7 +27,7 @@ Intel | Core i5-4210 | window10（x64） | dnn | 67ms
 
 Equipment | Computing backend | System | Framework | Run time
  :-----:|:-----:|:-----:|:----------:|:----:|
-Raspberrypi 3B| 4xCortex-A53 | Linux(arm64) | dnn | 97ms
+Raspberrypi 3B| 4xCortex-A53 | Linux(arm64) | dnn | 673ms
 Intel | Core i5-4210 | window10（x64） | dnn | 71ms
 
 
@@ -36,7 +36,7 @@ Models：[yolov5s.onnx](https://github.com/hpc203/yolov5-dnn-cpp-python)
 
 Equipment | Computing backend | System | Framework | Run time
  :-----:|:-----:|:-----:|:----------:|:----:|
-Raspberrypi 3B| 4xCortex-A53 | Linux(arm64) | dnn | 973ms
+Raspberrypi 3B| 4xCortex-A53 | Linux(arm64) | dnn | 1073ms
 Intel | Core i5-4210 | window10（x64） | dnn | 197ms
 
    
