@@ -62,11 +62,11 @@ def postprocess(frame, networkOutput):
                         0.5, color, 2)
 
 
-def draw_time(frame, t):
-    fps = 1.0 / t * 10000000
-    label = 'Inference time: %.2f ms' % (t * 1000.0 / cv2.getTickFrequency())
-    cv2.putText(frame, label, (8, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
-    cv2.putText(frame, "FPS: %.2f" % fps, (700, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
+# def draw_time(frame, t):
+#     fps = 1.0 / t * 10000000
+#     label = 'Inference time: %.2f ms' % (t * 1000.0 / cv2.getTickFrequency())
+#     cv2.putText(frame, label, (8, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
+#     cv2.putText(frame, "FPS: %.2f" % fps, (700, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
     # cv2.putText(frame, "TIME: " + str(localtime), (8, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
 
 
@@ -76,13 +76,15 @@ def v4_inference(frame):
     postprocess(frame, networkOutput)
     # localtime = time.asctime(time.localtime(time.time()))
     t, _ = v4tiny_Net.getPerfProfile()
-    draw_time(frame, t)
+    label = 'Inference time: %.2f ms' % (t * 1000.0 / cv2.getTickFrequency())
+    print(label)
+    # draw_time(frame, t)
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Object Detectiom using YOLOv4 in OPENCV')
     parser.add_argument('--image', type=str, default='', help='Path to image file.')
-    parser.add_argument('--fourcc', type=int, default=1, help='Open the videocapture')
+    parser.add_argument('--fourcc', type=int, default=1, help='Open the VideoCapture')
     parser.add_argument('--video', type=str, default='', help='Open the video')
     args = parser.parse_args()
 
@@ -111,7 +113,7 @@ if __name__ == '__main__':
     else:
         cap = cv2.VideoCapture(args.video)
         fourcc = cv2.VideoWriter_fourcc(*'DIVX')
-        out = cv2.VideoWriter('yolo-faster.avi', fourcc, 20.0, (int(cap.get(3)), int(cap.get(4))))
+        out = cv2.VideoWriter('result.avi', fourcc, 20.0, (int(cap.get(3)), int(cap.get(4))))
         font = cv2.FONT_HERSHEY_SIMPLEX
 
         while (cap.isOpened()):

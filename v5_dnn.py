@@ -19,6 +19,8 @@ class yolov5():
         self.anchor_grid = np.asarray(anchors, dtype=np.float32).reshape(self.nl, 1, -1, 1, 1, 2)
 
         self.net = cv2.dnn.readNet(model)
+        # self.net.setPreferableBackend(cv2.dnn.DNN_BACKEND_CUDA)
+        # self.net.setPreferableTarget(cv2.dnn.DNN_TARGET_CUDA)
         self.confThreshold = confThreshold
         self.nmsThreshold = nmsThreshold
         self.objThreshold = objThreshold
@@ -60,7 +62,8 @@ class yolov5():
         # Perform non maximum suppression to eliminate redundant overlapping boxes with
         # lower confidences.
         indices = cv2.dnn.NMSBoxes(boxes, confidences, self.confThreshold, self.nmsThreshold)
-        time = (time.time() - begin) * 10000000
+        time = (time.time() - begin) * 1000
+        print('Inference time: %.2f ms' % time)
         for i in indices:
             i = i[0]
             box = boxes[i]
@@ -68,10 +71,10 @@ class yolov5():
             top = box[1]
             width = box[2]
             height = box[3]
-            frame = self.drawPred(frame, classIds[i], confidences[i], left, top, left + width, top + height, time)
+            frame = self.drawPred(frame, classIds[i], confidences[i], left, top, left + width, top + height)
         return frame
 
-    def drawPred(self, frame, classId, conf, left, top, right, bottom, time):
+    def drawPred(self, frame, classId, conf, left, top, right, bottom):
         # Draw a bounding box.
         cv2.rectangle(frame, (left, top), (right, bottom), (0, 0, 255), thickness=4)
 
@@ -82,9 +85,8 @@ class yolov5():
         labelSize, baseLine = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX, 0.5, 1)
         top = max(top, labelSize[1])
         # cv.rectangle(frame, (left, top - round(1.5 * labelSize[1])), (left + round(1.5 * labelSize[0]), top + baseLine), (255,255,255), cv.FILLED)
-        Time = 'Inference time: %.2f ms' % (time * 1000.0 / cv2.getTickFrequency())
         cv2.putText(frame, label, (left, top - 10), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), thickness=2)
-        cv2.putText(frame, Time, (8, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
+        # cv2.putText(frame, Time, (8, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
         return frame
 
     def detect(self, srcimg):
@@ -126,8 +128,8 @@ if __name__ == "__main__":
 
     if args.fourcc == 0:
         cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
-        cap.set(3, 720)  # set video width
-        cap.set(4, 680)  # set video height
+        cap.set(3, 1280)  # set video width
+        cap.set(4, 960)  # set video height
         while True:
             ret, frame = cap.read()
             yolonet.v5_inference(frame)

@@ -105,7 +105,8 @@ def v3_inference(frame):
     # Put efficiency information. The function getPerfProfile returns the overall time for inference(t) and the timings for each of the layers(in layersTimes)
     t, _ = fastest_net.getPerfProfile()
     label = 'Inference time: %.2f ms' % (t * 1000.0 / cv.getTickFrequency())
-    cv.putText(frame, label, (8, 30), cv.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
+    print(label)
+    # cv.putText(frame, label, (8, 30), cv.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Object Detection using YOLO-Fastest in OPENCV')

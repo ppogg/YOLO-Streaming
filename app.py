@@ -2,6 +2,7 @@ from flask import Flask, render_template, Response
 from v3_fastest import *
 from v4_tiny import *
 from v5_dnn import *
+from NanoDet import *
 
 class VideoCamera(object):
     def __init__(self):
@@ -56,6 +57,16 @@ def v5_dnn(camera):
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
 
+def NanoDet(camera):
+    nano_det = nanodet()
+    while True:
+        frame = camera.get_frame()
+        frame = nano_det.detect(frame)
+        ret, jpeg = cv2.imencode('.jpg', frame)
+        frame = jpeg.tobytes()
+        yield (b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
+
 @app.route('/video_feed')  # 这个地址返回视频流响应
 def video_feed():
     if model == 'v3_fastest':
@@ -67,10 +78,13 @@ def video_feed():
     if model == 'v5_dnn':
         return Response(v5_dnn(VideoCamera()),
                         mimetype='multipart/x-mixed-replace; boundary=frame')
+    if model == 'NanoDet':
+        return Response(NanoDet(VideoCamera()),
+                        mimetype='multipart/x-mixed-replace; boundary=frame')
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Object Detection using YOLO-Fastest in OPENCV')
-    parser.add_argument('--model', type=str, default='', choices=['v3_fastest', 'v4_tiny', 'v5_dnn', 'Nano'])
+    parser.add_argument('--model', type=str, default='', choices=['v3_fastest', 'v4_tiny', 'v5_dnn', 'NanoDet'])
     args = parser.parse_args()
     model = args.model
     app.run(host='0.0.0.0', debug=True, port=5000)
