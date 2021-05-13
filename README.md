@@ -131,3 +131,22 @@ This is a DNN repository that integrates the current detection algorithms. You m
 - [https://github.com/hpc203/nanodet-opncv-dnn-cpp-python](https://github.com/hpc203/nanodet-opncv-dnn-cpp-python)
 ##  other
 -   中文操作教程：[https://blog.csdn.net/weixin_45829462/article/details/115806322](https://blog.csdn.net/weixin_45829462/article/details/115806322)
+
+Batch | Crop | Corrosion | Background segmentation | input_size| Run time@(per sample)| @Accuracy
+ :-----:|:-----:|:-----:|:----------:|:----:|:----:|:----:|
+100| √ | √| √ | 640| 2.9s| 89.17
+500| √ | √| √ | 640| 2.8s| 89.74
+1000| √ | √| √ | 640| 2.4s| 90.11
+2000| √ | √| √ | 640| 2.3s| 90.13
+
+
+Crop | Corrosion | Background segmentation | input_size| Run time| @Accuracy-%
+:-----:|:-----:|:----------:|:----:|:----:|:----:|
+ .| .  |   | 320| 0.6s| 75.69
+. | .  |   | 640| 2s| 85.17
+√ |   |   | 640| 1.3s| 85.36
+   .|√ |   | 640| 7s| 88.01
+ . | . | √  | 640| 3s| 86.21
+ √| √ | .  | 640| 5s| 88.23
+   . | √ | √  | 640| 11s| 89.13
+   √ | √ | √  | 640| 11s| 89.74
