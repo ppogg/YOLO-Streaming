@@ -140,7 +140,7 @@ Batch | Crop | Corrosion | Background segmentation | input_size| Run time@(per s
 2000| √ | √| √ | 640| 2.3s| 90.13
 
 
-Crop | Corrosion | Background segmentation | input_size| Run time| @Accuracy-%
+点裁 | 消融 | 背景分割 | 尺寸| 耗时| @Accuracy-%
 :-----:|:-----:|:----------:|:----:|:----:|:----:|
  .| .  |   | 320| 0.6s| 75.69
 . | .  |   | 640| 2s| 85.17
