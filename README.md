@@ -5,6 +5,10 @@ Hi, this repository documents the process of pushing streams on some ultra-light
 
 <img src="https://github.com/pengtougu/Push-Streaming/blob/master/result/step.png" width="700" height="500" alt="step"/><br/>
 
+# 2021-08-01  Update
+
+Add YOLOX and Test performance
+
 # Requirements
 
 Please install the following packages first（for dnn）
@@ -50,13 +54,13 @@ Raspberrypi 3B| 4xCortex-A53 | Linux(arm64) | ncnn| 160| 716ms
 Intel | Core i5-4210 | window10（x64） | ncnn| 160| 197ms
 
    
-- Nanodet： [https://github.com/RangiLyu/nanodet](https://github.com/RangiLyu/nanodet)
-Models：[nanodet.onnx](https://github.com/hpc203/nanodet-opncv-dnn-cpp-python)
+- YOLOX： [https://github.com/Megvii-BaseDetection/YOLOX](https://github.com/Megvii-BaseDetection/YOLOX)
+Models：[yolox-nano-320.onnx](https://github.com/Megvii-BaseDetection/YOLOX)
 
 Equipment | Computing backend | System | Framework | input_size| Run time
  :-----:|:-----:|:-----:|:----------:|:----:|:----:|
-Raspberrypi 3B| 4xCortex-A53 | Linux(arm64) | dnn | 320| 113ms
-Intel | Core i5-4210 | window10（x64） | dnn | 320| 23ms
+Raspberrypi 3B| 4xCortex-A53 | Linux(arm64) | dnn | 320| 173ms
+Intel | Core i5-4210 | window10（x64） | dnn | 320| 33ms
 
    updating. . . 
 
@@ -65,31 +69,17 @@ Intel | Core i5-4210 | window10（x64） | dnn | 320| 23ms
 First of all, I have tested this demo in window, mac and linux environments and it works in all of them.
 
 **Run v3_fastest.py**
--  	Inference images use ```python yolov3_fastest.py --image dog.jpg```
--   Inference video use ```python yolov3_fastest.py --video test.mp4```
--   Inference webcam use ```python yolov3_fastest.py --fourcc 0```
-
 **Run v4_tiny.py**
--  	Inference images use ```python v4_tiny.py --image person.jpg```
--   Inference video use ```python v4_tiny.py --video test.mp4```
--   Inference webcam use ```python v4_tiny.py --fourcc 0```
-
 **Run v5_dnn.py**
--  	Inference images use ```python v5_dnn.py --image person.jpg```
--   Inference video use ```python v5_dnn.py --video test.mp4```
--   Inference webcam use ```python v5_dnn.py --fourcc 0```
-
-**Run NanoDet.py**
--  	Inference images use ```python NanoDet.py --image person.jpg```
--   Inference video use ```python NanoDet.py --video test.mp4```
--   Inference webcam use ```python NanoDet.py --fourcc 0```
+**Run vx_ort.py**
+-  	Inference images use ```python xx.py```
 
 **Run app.py**    -（Push-Streaming online）
 
--  	Inference with v3-fastest ```python app.py --model v3_fastest```
--   Inference with v4-tiny ```python app.py --model v4_tiny```
-- Inference with v5-dnn ```python app.py --model v5_dnn```
- - Inference with NanoDet ```python app.py --model NanoDet```
+-  Inference with v3-fastest ```python app.py --model v3_fastest```
+-  Inference with v4-tiny ```python app.py --model v4_tiny```
+-  Inference with v5-dnn ```python app.py --model v5_dnn```
+-  Inference with NanoDet ```python app.py --model vx_ort```
 
 ⚡  **Please note! Be sure to be on the same LAN！**
 ##  Demo Effects
