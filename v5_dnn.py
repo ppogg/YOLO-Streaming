@@ -1,16 +1,17 @@
 import cv2
-import argparse
 import numpy as np
 
-model = 'data/yolov5s-320.onnx'
+model = 'model/yolov5s-320.onnx'
+names_file = 'data/coco.names'
+with open(names_file, 'rt') as f:
+    classes = f.read().rstrip('\n').split('\n')
+COLORS = np.random.randint(0, 255, size=(len(classes), 3), dtype="uint8")
+anchors = [[10, 13, 16, 30, 33, 23], [30, 61, 62, 45, 59, 119], [116, 90, 156, 198, 373, 326]]
 
 class yolov5():
-    def __init__(self, confThreshold=0.5, nmsThreshold=0.5, objThreshold=0.5):
-        with open('data/coco.names', 'rt') as f:
-            self.classes = f.read().rstrip('\n').split('\n')    ###这个是在coco数据集上训练的模型做opencv部署的，如果你在自己的数据集上训练出的模型做opencv部署，那么需要修改self.classes
-        self.colors = [np.random.randint(0, 255, size=3).tolist() for _ in range(len(self.classes))]
-        num_classes = len(self.classes)
-        anchors = [[10, 13, 16, 30, 33, 23], [30, 61, 62, 45, 59, 119], [116, 90, 156, 198, 373, 326]]
+    def __init__(self, confThreshold = 0.2, nmsThreshold = 0.2, objThreshold = 0.4):
+        self.colors = [np.random.randint(0, 255, size=3).tolist() for _ in range(len(classes))]
+        num_classes = len(classes)
         self.nl = len(anchors)
         self.na = len(anchors[0]) // 2
         self.no = num_classes + 5
@@ -35,8 +36,7 @@ class yolov5():
         import time
         begin = time.time()
         outs = self.detect(frame)
-        frameHeight = frame.shape[0]
-        frameWidth = frame.shape[1]
+        frameHeight, frameWidth = frame.shape[0], frame.shape[1]
         ratioh, ratiow = frameHeight / self.Height, frameWidth / self.Width
         # Scan through all the bounding boxes output from the network and keep only the
         # ones with high confidence scores. Assign the box's class label as the class with the highest score.
@@ -67,25 +67,19 @@ class yolov5():
         for i in indices:
             i = i[0]
             box = boxes[i]
-            left = box[0]
-            top = box[1]
-            width = box[2]
-            height = box[3]
-            frame = self.drawPred(frame, classIds[i], confidences[i], left, top, left + width, top + height)
+            left, top, width, height = box[0], box[1], box[2], box[3]
+            self.drawPred(frame, classIds[i], confidences[i], left, top, left + width, top + height)
         return frame
 
     def drawPred(self, frame, classId, conf, left, top, right, bottom):
-        # Draw a bounding box.
-        cv2.rectangle(frame, (left, top), (right, bottom), (0, 0, 255), thickness=4)
-
+        color = [int(c) for c in COLORS[classId]]
+        cv2.rectangle(frame, (left, top), (right, bottom), color, thickness=2)
         label = '%.2f' % conf
-        label = '%s:%s' % (self.classes[classId], label)
-
+        label = '%s:%s' % (classes[classId], label)
         # Display the label at the top of the bounding box
-        labelSize, baseLine = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX, 0.5, 1)
+        labelSize, baseLine = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX, 0.5, 2)
         top = max(top, labelSize[1])
-        # cv.rectangle(frame, (left, top - round(1.5 * labelSize[1])), (left + round(1.5 * labelSize[0]), top + baseLine), (255,255,255), cv.FILLED)
-        cv2.putText(frame, label, (left, top - 10), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), thickness=2)
+        cv2.putText(frame, label, (left, top - 10), cv2.FONT_HERSHEY_SIMPLEX, 1, color, thickness=2)
         # cv2.putText(frame, Time, (8, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
         return frame
 
@@ -115,53 +109,17 @@ class yolov5():
         return z
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Object Detection using YOLOv5 in OPENCV')
-    parser.add_argument('--image', type=str, default='', help='Path to image file.')
-    parser.add_argument('--fourcc', type=int, default=1, help='Open the videocapture')
-    parser.add_argument('--video', type=str, default='', help='Open the video')
-    parser.add_argument('--confThreshold', default=0.25, type=float, help='class confidence')
-    parser.add_argument('--nmsThreshold', default=0.5, type=float, help='nms iou thresh')
-    parser.add_argument('--objThreshold', default=0.45, type=float, help='object confidence')
-    args = parser.parse_args()
-
-    yolonet = yolov5(confThreshold=args.confThreshold, nmsThreshold=args.nmsThreshold, objThreshold=args.objThreshold)
-
-    if args.fourcc == 0:
-        cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
-        cap.set(3, 1280)  # set video width
-        cap.set(4, 960)  # set video height
-        while True:
-            ret, frame = cap.read()
-            yolonet.v5_inference(frame)
-            cv2.imshow('fourcc', frame)
-            k = cv2.waitKey(20)
-            # q键退出
-            if (k & 0xff == ord('q')):
-                break
-        cap.release()
-        cv2.destroyAllWindows()
-
-    elif args.image:
-        frame = cv2.imread(args.image)
-        # Create a 4D blob from a frame.
+    yolonet = yolov5()
+    cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+    cap.set(3, 960)  # set video width
+    cap.set(4, 780)  # set video height
+    while True:
+        ret, frame = cap.read()
         yolonet.v5_inference(frame)
-        cv2.imshow('image', frame)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
-
-    else:
-        cap = cv2.VideoCapture(args.video)
-        fourcc = cv2.VideoWriter_fourcc(*'DIVX')
-        out = cv2.VideoWriter('v5s-320.avi', fourcc, 20.0, (int(cap.get(3)), int(cap.get(4))))
-        font = cv2.FONT_HERSHEY_SIMPLEX
-        while (cap.isOpened()):
-            ret, frame = cap.read()
-            yolonet.v5_inference(frame)
-            cv2.imshow('video', frame)
-            out.write(frame)
-            k = cv2.waitKey(20)
-            # q键退出
-            if (k & 0xff == ord('q')):
-                break
-        cap.release()
-        cv2.destroyAllWindows()
+        cv2.imshow('fourcc', frame)
+        k = cv2.waitKey(20)
+        # q键退出
+        if (k & 0xff == ord('q')):
+            break
+    cap.release()
+    cv2.destroyAllWindows()

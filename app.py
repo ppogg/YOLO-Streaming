@@ -1,15 +1,15 @@
 from flask import Flask, render_template, Response
+import argparse
 from v3_fastest import *
 from v4_tiny import *
 from v5_dnn import *
-from NanoDet import *
+from vx_ort import *
 
 class VideoCamera(object):
     def __init__(self):
         # 通过opencv获取实时视频流
         self.video = cv2.VideoCapture(0)
-        # self.video.set(3, 960)  # set video width
-        # self.video.set(4, 720)  # set video height
+
     def __del__(self):
         self.video.release()
     def get_frame(self):
@@ -30,7 +30,6 @@ def index():
 def v3_fastest(camera):
     while True:
         frame = camera.get_frame()
-        # print(frame)
         v3_inference(frame)
         ret, jpeg = cv2.imencode('.jpg', frame)
         frame = jpeg.tobytes()
@@ -57,15 +56,16 @@ def v5_dnn(camera):
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
 
-def NanoDet(camera):
-    nano_det = nanodet()
+
+def vx_ort(camera):
     while True:
         frame = camera.get_frame()
-        frame = nano_det.detect(frame)
+        yolox_detect(frame)
         ret, jpeg = cv2.imencode('.jpg', frame)
         frame = jpeg.tobytes()
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
+
 
 @app.route('/video_feed')  # 这个地址返回视频流响应
 def video_feed():
@@ -78,13 +78,14 @@ def video_feed():
     if model == 'v5_dnn':
         return Response(v5_dnn(VideoCamera()),
                         mimetype='multipart/x-mixed-replace; boundary=frame')
-    if model == 'NanoDet':
-        return Response(NanoDet(VideoCamera()),
+    if model == 'vx_ort':
+        return Response(vx_ort(VideoCamera()),
                         mimetype='multipart/x-mixed-replace; boundary=frame')
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Object Detection using YOLO-Fastest in OPENCV')
-    parser.add_argument('--model', type=str, default='', choices=['v3_fastest', 'v4_tiny', 'v5_dnn', 'NanoDet'])
+    parser.add_argument('--model', type=str, default='vx_ort', choices=['v3_fastest', 'v4_tiny', 'v5_dnn', 'vx_ort'])
+    parser.add_argument('--semi-label', type=int, default=0, help="semi-label the frame or not")
     args = parser.parse_args()
     model = args.model
     app.run(host='0.0.0.0', debug=True, port=5000)
